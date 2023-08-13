@@ -1,0 +1,17 @@
+{
+  "name": "skribbl",
+  "version": "1.0.0",
+  "description": "Pictionary game in which users have 2 roles of a drawer and a guesser, the drawer draws the selected word on canvas so that the guessers can guess the word.",
+  "private": true,
+  "workspaces": [
+    "frontend/",
+    "backend/"
+  ],
+  "scripts": {
+    "build": "yarn workspace @skribbl/frontend build",
+    "start": "yarn workspace @skribbl/backend start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Imran Khan",
+  "license": "ISC"
+}
