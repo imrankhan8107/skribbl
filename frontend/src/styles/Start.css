@@ -1,0 +1,9 @@
+.input-button {
+  margin-top: 4rem;
+}
+
+#drawing-area {
+  border: 1px solid black;
+  margin: 0;
+  z-index: -1;
+}

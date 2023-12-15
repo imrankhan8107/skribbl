@@ -9,9 +9,16 @@
   ],
   "scripts": {
     "build": "yarn workspace @skribbl/frontend build",
+    "spb": "yarn workspace @skribbl/frontend dev",
+    "dev": "yarn workspace @skribbl/backend dev",
     "start": "yarn workspace @skribbl/backend start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Imran Khan",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "fabricjs-react": "^1.2.1",
+    "parcel": "^2.10.3"
+  }
 }

@@ -1,0 +1,14 @@
+.message-container {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  width: 100%;
+  overflow: auto;
+  border: 1px solid blue;
+  border-radius: 5px;
+}
+
+.message {
+  margin-top: 1rem;
+  margin-left: 1rem;
+}

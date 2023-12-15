@@ -1,15 +1,23 @@
-const express = require("express");
-const Router = require("./routes");
+const { instrument } = require("@socket.io/admin-ui");
+// const cookieParser = require("cookie-parser");
+const { ChatHandler, SessionHandler } = require("./handlers");
+const GameSocketService = require("./services/game_socket");
 
-const app = express();
-app.use(express.json());
+const app = require("express")();
+// app.use(cookieParser());
+const server = require("http").createServer(app);
+GameSocketService.init(server);
 
-app.use("/api", Router);
+const io = GameSocketService.getInstance();
 
-app.get('/',(req,res)=>{
-  res.send("Hello world")
-})
+io.on("connection", (client) => {
+  SessionHandler(client, GameSocketService);
+  ChatHandler(client, GameSocketService);
+});
 
-app.listen(4000, () => {
-  console.log("Running backend on http://localhost:4000");
+// https://admin.socket.io/#/servers
+instrument(io, { auth: false });
+
+server.listen(4000, () => {
+  console.log("Server is running on http://localhost:4000");
 });
