@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { GameContext, SocketContext } from "../App";
 import Chat from "../Components/Chat";
+import { Link } from "react-router-dom";
 // import { useSelector } from "react-redux";
 
 export default function WaitArea() {
@@ -48,6 +49,15 @@ export default function WaitArea() {
           >
             Copy URL
           </button>
+          <Link to={`/${gameToken}/game`}>
+            <button
+              onClick={() => {
+                socket.emit("start-game", gameToken);
+              }}
+            >
+              Start Game
+            </button>
+          </Link>
         </center>
       </div>
       <Chat />

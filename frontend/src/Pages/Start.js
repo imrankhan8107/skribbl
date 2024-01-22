@@ -1,12 +1,13 @@
+// import { fabric } from "fabric";
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { GameContext, SocketContext } from "../App";
-// import { fabric } from "fabric";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
 import "../styles/Start.css";
 
 export default function Start() {
   const { editor, onReady } = useFabricJSEditor();
+  
   const { gameId } = useParams();
   const [userName, setUserName] = useState("");
   const { Game, setGame, playerId, setPlayerId, gameToken, setGameToken } =
@@ -70,19 +71,22 @@ export default function Start() {
   // );
   const toggleDraw = () => {
     editor.canvas.isDrawingMode = !editor.canvas.isDrawingMode;
+    editor.canvas.getPointer = function (e) {
+      return fabric.util.getPointer(e, editor.canvas.upperCanvasEl);
+    };
   };
-  function startGame() {
-    socket.emit("create-session");
-    socket.on("session-created", (game) => {
+  async function startGame() {
+    await socket.emit("create-session");
+    await socket.on("session-created", (game) => {
       setGame(game);
       setGameToken(game.gameToken);
       localStorage.setItem("gameToken", game.gameToken);
       joinGame(game.gameToken, userName, playerId);
     });
   }
-  function joinGame(gameToken, userName, playerId) {
-    socket.emit("join-session", gameToken, userName, playerId);
-    socket.on("session-joined", (game, playerId) => {
+  async function joinGame(gameToken, userName, playerId) {
+    await socket.emit("join-session", gameToken, userName, playerId);
+    await socket.on("session-joined", (game, playerId) => {
       setGame(game);
       localStorage.setItem("userId", playerId);
       setPlayerId(playerId);
@@ -121,7 +125,7 @@ export default function Start() {
   return (
     <div>
       <h1>React App</h1>
-      <h1>{socket.id}</h1>
+      {/* <h1>{socket.id}</h1> */}
       <FabricJSCanvas
         className="sample-canvas"
         onReady={onReady}

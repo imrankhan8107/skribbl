@@ -25,6 +25,7 @@ class GameSocket {
       gameToken: gameId,
       drawerNo: null,
       creatorId: null,
+      noOfPlayers: 0,
     };
     return this.games[gameId];
   }
@@ -37,7 +38,9 @@ class GameSocket {
           playerId: playerId,
           playerName: playerName,
           score: 0,
+          playerNum: this.games[gameId].noOfPlayers + 1,
         };
+        this.games[gameId].noOfPlayers += 1;
       }
     } catch (err) {
       console.log(err);
@@ -46,6 +49,14 @@ class GameSocket {
   }
 
   leaveGame(gameId, playerId) {
+    if (!this.games[gameId]) return;
+    // if (
+    //   this.games[gameId].players[playerId].playerNum ===
+    //   this.games[gameId].drawerNo
+    // ) {
+    //   this.games[gameId].drawerNo =
+    //     this.games[gameId].players[playerId].playerNum + 1;
+    // }
     delete this.games[gameId].players[playerId];
     return this.games[gameId];
   }

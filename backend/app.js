@@ -1,10 +1,8 @@
 const { instrument } = require("@socket.io/admin-ui");
-// const cookieParser = require("cookie-parser");
 const { ChatHandler, SessionHandler } = require("./handlers");
 const GameSocketService = require("./services/game_socket");
 
 const app = require("express")();
-// app.use(cookieParser());
 const server = require("http").createServer(app);
 GameSocketService.init(server);
 
